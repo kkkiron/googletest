@@ -9,25 +9,33 @@ Google's specific requirements and constraints in mind. Whether you work on
 Linux, Windows, or a Mac, if you write C++ code, googletest can help you. And it
 supports *any* kind of tests, not just unit tests.
 
+*任何平台，任一场景（不只是单元测试）*
+
 So what makes a good test, and how does googletest fit in? We believe:
 
-1.  Tests should be *independent* and *repeatable*. It's a pain to debug a test
-    that succeeds or fails as a result of other tests. googletest isolates the
-    tests by running each of them on a different object. When a test fails,
-    googletest allows you to run it in isolation for quick debugging.
+1.  Tests should be *independent（独立，封装）* and *repeatable（可重复）*. 
+2.  It's a pain to debug a test that succeeds or fails as a result of other tests
+    （*一个测试的成败依赖于另一个测试（测试套娃，太难了）*）. googletest isolates the
+    tests by running each of them on a different object（Gtest通过不同对象将这些测试孤立开来）. 
+    When a test fails,googletest allows you to run it in isolation for quick debugging.
+    Gtest帮你独立运行（那些可能出现问题的单元），用于快速debug
 2.  Tests should be well *organized* and reflect the structure of the tested
-    code. googletest groups related tests into test suites that can share data
+    code. 测试应具备良好的组织性，且能反映待测试代码结构
+    googletest groups related tests into test suites that can share data
     and subroutines. This common pattern is easy to recognize and makes tests
-    easy to maintain. Such consistency is especially helpful when people switch
-    projects and start to work on a new code base.
-3.  Tests should be *portable* and *reusable*. Google has a lot of code that is
-    platform-neutral; its tests should also be platform-neutral. googletest
+    easy to maintain. 
+    Such consistency is especially helpful when people switch projects and start to work on a new code base.
+    当人们需要切换项目，切换运行环境时，这种一致性就非常帮得上忙
+3.  Tests should be *portable（便携）* and *reusable（重用）*. Google has a lot of code that is
+    platform-neutral; its tests should also be platform-neutral*（平台无关的）*. googletest
     works on different OSes, with different compilers, with or without
     exceptions, so googletest tests can work with a variety of configurations.
 4.  When tests fail, they should provide as much *information* about the problem
     as possible. googletest doesn't stop at the first test failure. Instead, it
-    only stops the current test and continues with the next. You can also set up
+    only stops the current test（只终止当前的测试，但一系列测试仍将继续下去，以获得更详细的debug信息）
+    and continues with the next. You can also set up
     tests that report non-fatal failures after which the current test continues.
+    甚至只要不是致命错误，当前测试单元也能继续下去
     Thus, you can detect and fix multiple bugs in a single run-edit-compile
     cycle.
 5.  The testing framework should liberate test writers from housekeeping chores
